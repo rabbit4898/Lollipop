@@ -1,0 +1,60 @@
+<html>
+
+<head>
+  <title>Login Page | Lollipop Book Store</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+
+<body>
+  <div class="loginbox">
+    <img src="/images/avatar.png" class="avatar" />
+    <h1>Đăng nhập</h1>
+
+    <p>Tài khoản</p>
+    <input type="text" name="" id="username" placeholder="Nhập tài khoản" />
+    <p>Mật khẩu</p>
+    <input type="password" id="password" name="" placeholder="Nhập mật khẩu" />
+    <input type="submit" id="submit" name="" value="Đăng nhập" />
+    <a href="#">Quên mật khẩu?</a><br />
+
+  </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+
+    $("#submit").click(function () {
+
+      var username = $("#username").val();
+      let password = $('#password').val();
+
+      console.log({ username, password });
+      $.ajax({
+        type: 'post',
+        url: `/signin`,
+        contentType: 'application/json',
+        data: JSON.stringify({
+          'username': username,
+          'password': password
+        }),
+        dataType: 'json',
+        success: function (res) {
+
+          console.log(res)
+          if (!res.error) {
+            window.location.href = '/test';
+          }
+          //localStorage.setItem("authorname", username);
+
+
+        }, error: function (err) {
+          console.log(err);
+        }
+      })
+    })
+  })
+</script>
+
+</head>
+
+
+</html>

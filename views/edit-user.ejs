@@ -1,0 +1,111 @@
+<%- include('./intit/header') %>
+<%- include('./intit/topbar') %>
+<%- include('./intit/sidebar') %>
+<div class="content-wrapper">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xl-6 mb-30">
+                <div class="card card-statistics h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">SỬA THÔNG TIN TAI KHOAN</h5>
+                        <div class="form-group">
+                            <label class="control-label">TÊN TAI KHOAN</label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="nameBook" value="<%= infoUser.userName %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">CAP DO</label>
+
+                            <div class="mb-2">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <%= infoUser.role%>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                        x-placement="bottom-start"
+                                        style="position: absolute; transform: translate3d(0px, 33px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                        <a id='chooseAdmin' class="dropdown-item" href="#">Admin</a>
+                                        <a id='chooseUser' class="dropdown-item" href="#">User</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Dia chi</label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="diachi" value="<%= infoUser.diaChi %>">
+                            </div>
+                        </div>
+
+                        <div>
+                            <button id="edit-book" class="btn btn-primary">Lưu</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="/vendor/bootstrap/js/popper.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script>
+    $(' .js-pscroll').each(function () {
+        var ps = new PerfectScrollbar(this); $(window).on('resize', function () {
+            ps.update();
+        })
+    });
+
+    $(document).ready(function () {
+        $('.item-category').click(function () {
+            let name = $(this).text();
+            console.log('>>>>>>>>>>>>>>>>>>>>')
+            $('#main-category').text(name)
+            $('#main-category').attr('id', $(this).attr('id'))
+        });
+        let role = 'User'
+        $('#chooseUser').click(function () {
+            role = 'User'
+        })
+        $('#chooseAdmin').click(function () {
+            role = 'Admin'
+        })
+        $('#edit-book').click(function () {
+            let diaChi = $('#diachi').val();
+            let email = `<%=infoUser.email%>`
+            if (diaChi) {
+                // call ajax
+                $.ajax({
+                    url: '/sua-tai-khoan',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ diaChi, role, email }),
+                    dataType: 'json',
+                    success: function (resp) {
+                        console.log({ resp })
+                        alert('SUA THANH CONG')
+
+                    },
+                    error: function (error) {
+                        console.log({ error });
+                        alert('Có lỗi khi thao tác')
+                    }
+                })
+            }
+        })
+    });  
+</script>
+<!--===============================================================================================-->
+<script src="/js/main.js"></script>
+
+</html>

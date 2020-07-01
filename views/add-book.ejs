@@ -1,0 +1,113 @@
+<%- include('./intit/header') %>
+<%- include('./intit/topbar') %>
+<%- include('./intit/sidebar') %>
+<div class="content-wrapper">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xl-6 mb-30">
+                <div class="card card-statistics h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">THÊM SÁCH MỚI</h5>
+                        <div class="form-group">
+                            <label class="control-label">TÊN SÁCH</label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="nameBook">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">SỐ LƯỢNG</label>
+                            <div class="mb-2">
+                                <input type="number" class="form-control" id="amoutBook">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">LOẠI SÁCH</label>
+                            <div class="mb-2">
+                                <div class="dropdown">
+                                    <a id='<%= resulFinded[1].idDM %>'
+                                        class="btn btn-secondary dropdown-toggle main-category" href="#" role="button"
+                                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <%= resulFinded[1].tenDM %>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"
+                                        x-placement="bottom-start"
+                                        style="position: absolute; transform: translate3d(0px, 33px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                        <%resulFinded.forEach(category=>{ %>
+                                        <a class="dropdown-item item-category"
+                                            id="<%= category.idDM %>"><%= category.tenDM %></a>
+                                        <%})%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">ĐƠN GIÁ</label>
+                            <div class="mb-2">
+                                <input type="number" class="form-control" id="priceBook">
+                            </div>
+                        </div>
+
+                        <div>
+                            <button id="add-book" class="btn btn-primary">Thêm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script>
+    $(' .js-pscroll').each(function () {
+        var ps = new PerfectScrollbar(this); $(window).on('resize', function () {
+            ps.update();
+        })
+    });
+
+    $(document).ready(function () {
+        $('.item-category').click(function () {
+            let name = $(this).text();
+            console.log('>>>>>>>>>>>>>>>>>>>>')
+            $('.main-category').text(name)
+            $('.main-category').attr('id', $(this).attr('id'))
+        })
+        $('#add-book').click(function () {
+            let nameBook = $('#nameBook').val();
+            let amoutBook = $('#amoutBook').val();
+            let priceBook = $('#priceBook').val();
+            let categoryName = $('.main-category').attr('id');
+            console.log({ nameBook, amoutBook, priceBook, categoryName })
+            // kiểm tra nếu điền đầy đủ thông ton thì cho phép thêm vào
+            if (nameBook && amoutBook && priceBook) {
+                // call ajax
+                $.ajax({
+                    url: '/them-sach',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ nameBook, amoutBook, priceBook, categoryName }),
+                    dataType: 'json',
+                    success: function (resp) {
+                        console.log({ resp })
+                    },
+                    error: function (error) {
+                        console.log({ error });
+                        alert('Có lỗi khi thao tác')
+                    }
+                })
+            }
+        })
+    });  
+</script>
+<!--===============================================================================================-->
+<script src="js/main.js"></script>
+
+</html>

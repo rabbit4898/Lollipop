@@ -1,0 +1,150 @@
+<%- include('./intit/header') %>
+<%- include('./intit/topbar') %>
+<%- include('./intit/sidebar') %>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <head>
+        <title>Table V04</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--===============================================================================================-->
+        <link rel="icon" type="image/png" href="/controller/" />
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/vendor/animate/animate.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/vendor/perfect-scrollbar/perfect-scrollbar.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/css/util.css">
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <!--===============================================================================================-->
+    </head>
+</head>
+<div class="content-wrapper">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xl-12 mb-30">
+                <div class="card card-statistics h-100">
+                    <div class="card-body">
+                        <div class="d-block d-md-flex justify-content-between">
+                            <div class="d-block">
+                                <h5 class="card-title pb-0 border-0">Data Local</h5>
+                            </div>
+                            <div class="d-block d-md-flex clearfix sm-mt-20">
+                                <div class="clearfix">
+                                    <div class="box">
+                                        <select class="fancyselect sm-mb-20 mr-20">
+                                            <option value="1">Some option</option>
+                                            <option value="2">Another option</option>
+                                            <option value="3">A option</option>
+                                            <option value="4">Potato</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="widget-search ml-0 clearfix">
+                                    <i class="fa fa-search"></i>
+                                    <input type="search" class="form-control" placeholder="Search....">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive mt-15">
+                            <table class="table center-aligned-table mb-0">
+                                <thead>
+                                    <tr class="text-dark">
+                                        <th>Order No</th>
+                                        <th>Product Name</th>
+                                        <th>Purchased On</th>
+                                        <th>Shipping Status</th>
+                                        <th>Payment Method</th>
+                                        <th>Payment Status</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%resulFinded.forEach(book=>{%>
+                                    <tr class="  single-product" id='<%= book.maSP %>'>
+                                        <td><%= book.maSP %></td>
+                                        <td><%= book.tenSach  %></td>
+                                        <td><%= book.giaTien %></td>
+                                        <td><%= book.soLuong %></td>
+                                        <td>Aaron Chapman</td>
+                                        <td>10</td>
+                                        <td><label class="badge badge-success">
+                                                <%
+                                            let status = 'hết hàng'
+                                            if(book.soLuong > 0){status = 'còn hàng'}%>
+                                                <%=status%>
+                                            </label></td>
+                                        <td><a href="/sua-sach/<%=book.tenSach%>/<%=book.idDM%>"
+                                                class="btn btn-outline-success btn-sm">Chỉnh
+                                                sửa</a></td>
+                                        <td><a id='<%=book.tenSach%>' idCategory="<%= book.idDM %>"
+                                                class="btn btn-outline-warning btn-sm xoa-sach">Xóa</a>
+                                        </td>
+                                    </tr>
+                                    <%})%>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--===============================================================================================-->
+<script src=" /vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="/vendor/bootstrap/js/popper.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script>
+    $('.js-pscroll').each(function () {
+        var ps = new PerfectScrollbar(this);
+
+        $(window).on('resize', function () {
+            ps.update();
+        })
+    });
+
+    $('.xoa-sach').click(function () {
+        let categoryName = $(this).attr('idCategory');
+        let idBook = $(this).attr('id');
+
+        console.log({ categoryName, idBook });
+        $.ajax({
+            url: '/xoa-sach',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ categoryName, idBook }),
+            dataType: 'json',
+            success: function (resp) {
+                console.log({ resp })
+                alert('xAO THANH CONG')
+
+            },
+            error: function (error) {
+                console.log({ error });
+                alert('Có lỗi khi thao tác')
+            }
+        })
+    })
+</script>
+<!--===============================================================================================-->
+<script src="/js/main.js"></script>
+
+</html>

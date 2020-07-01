@@ -1,0 +1,66 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- Left Sidebar start-->
+        <div class="side-menu-fixed">
+            <div class="scrollbar side-menu-bg">
+                <ul class="nav navbar-nav side-menu" id="sidebarnav">
+                    <!-- menu item Dashboard-->
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#dashboard">
+                            <div class="pull-left"><i class="ti-home"></i><span class="right-nav-text">Dashboard</span>
+                            </div>
+                            <div class="clearfix"></div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#calendar-menu"
+                            aria-expanded="true">
+                            <div class="pull-left"><i class="ti-calendar"></i><span class="right-nav-text">QUẢN LÝ
+                                    SÁCH</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="calendar-menu" class="collapse show" data-parent="#sidebarnav" style="">
+                            <li> <a href="/them-sach">Thêm sách mới</a> </li>
+                            <%listCategory.forEach(category=>{%>
+                            <li> <a href="/danhmuc/<%= category.idDM %>"><%= category.tenDM %> </a> </li>
+                            <%})%>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#calendar-menu"
+                            aria-expanded="true">
+                            <div class="pull-left"><i class="ti-calendar"></i><span class="right-nav-text">QUẢN LÝ
+                                    Tài Khoản</span></div>
+                            <div class="pull-right"><i class="ti-plus"></i></div>
+                            <div class="clearfix"></div>
+                        </a>
+                        <ul id="calendar-menu" class="collapse show" data-parent="#sidebarnav" style="">
+                            <li> <a href="/list-user">Danh Sách Tài Khoản</a> </li>
+                        </ul>
+                    </li>
+
+                    <!-- menu item chat-->
+                    <li>
+                        <a href="chat-page.html"><i class="ti-comments"></i><span class="right-nav-text">Chat
+                            </span></a>
+                    </li>
+                    <!-- menu item mailbox-->
+                    <li>
+                        <a href="mail-box.html"><i class="ti-email"></i><span class="right-nav-text">Mail box</span>
+                            <span class="badge badge-pill badge-warning float-right mt-1">HOT</span> </a>
+                    </li>
+
+
+                    <!-- menu title -->
+                    <li class="mt-10 mb-10 text-muted pl-4 font-medium menu-title">Widgets, Forms & Tables </li>
+            </div>
+        </div>
+
+        <!-- Left Sidebar End-->
+
+        <!--=================================
+wrapper -->
+    </div>
+</div>

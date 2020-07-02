@@ -24,16 +24,16 @@
                             <label class="control-label">LOẠI SÁCH</label>
                             <div class="mb-2">
                                 <div class="dropdown">
-                                    <a id='<%= resulFinded[1].idDM %>'
+                                    <a id='<%= listCategory[1].idDM %>'
                                         class="btn btn-secondary dropdown-toggle main-category" href="#" role="button"
                                         id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
-                                        <%= resulFinded[1].tenDM %>
+                                        <%= listCategory[1].tenDM %>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"
                                         x-placement="bottom-start"
                                         style="position: absolute; transform: translate3d(0px, 33px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                        <%resulFinded.forEach(category=>{ %>
+                                        <%listCategory.forEach(category=>{ %>
                                         <a class="dropdown-item item-category"
                                             id="<%= category.idDM %>"><%= category.tenDM %></a>
                                         <%})%>
@@ -45,6 +45,80 @@
                             <label class="control-label">ĐƠN GIÁ</label>
                             <div class="mb-2">
                                 <input type="number" class="form-control" id="priceBook">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">KÍCH THƯỚC</label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="kichthuoc"
+                                value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">TÁC GIẢ</label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="tacgia"
+                                value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">NHÀ XUẤT BẢN</label>
+                            <div class="mb-2">
+                                 <input type="text" class="form-control" id="nhaxuatban"
+                                value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">GIỚI THIỆU SÁCH</label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="gioithieusach"
+                                value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">TRẠNG THÁI</label>
+                            <div class="mb-2">
+                                <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle " type="button"
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <p class="hienthitrangthai">TRUE</p>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                    x-placement="bottom-start"
+                                    style="position: absolute; transform: translate3d(0px, 33px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                    <a id='statusTrue' class="dropdown-item" href="#">TRUE</a>
+                                    <a id='statusFalse' class="dropdown-item" href="#">FALSE</a>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">KHỐI LƯỢNG</label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="khoiluong"
+                                value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">ĐỊNH DẠNG</label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="dinhdang"
+                                value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">NGÔN NGỮ</label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="ngonngu"
+                                value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">SỐ TRANG</label>
+                            <div class="mb-2">
+                                <input type="number" class="form-control" id="sotrang"
+                                value="">
                             </div>
                         </div>
 
@@ -85,15 +159,25 @@
             let amoutBook = $('#amoutBook').val();
             let priceBook = $('#priceBook').val();
             let categoryName = $('.main-category').attr('id');
-            console.log({ nameBook, amoutBook, priceBook, categoryName })
+            let kichThuoc = $('#kichthuoc').val();
+            let tacGia = $('#tacgia').val();
+            let nhaXuatBan = $('#nhaxuatban').val();
+
+            let gioiThieuSach = $('#gioithieusach').val();
+            let khoiLuong = $('#khoiluong').val();
+            let dinhDang = $('#dinhdang').val();
+            let ngonNgu = $('#ngonngu').val();
+            let soTrang = $('#sotrang').val();
             // kiểm tra nếu điền đầy đủ thông ton thì cho phép thêm vào
             if (nameBook && amoutBook && priceBook) {
+            console.log({ nameBook, amoutBook, priceBook, categoryName, kichThuoc, tacGia, nhaXuatBan, gioiThieuSach, khoiLuong, dinhDang, ngonNgu, soTrang})
+                
                 // call ajax
                 $.ajax({
                     url: '/them-sach',
                     method: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify({ nameBook, amoutBook, priceBook, categoryName }),
+                    data: JSON.stringify({ nameBook, amoutBook, priceBook, categoryName, kichThuoc, tacGia, nhaXuatBan, gioiThieuSach, khoiLuong, dinhDang, ngonNgu, soTrang}),
                     dataType: 'json',
                     success: function (resp) {
                         console.log({ resp })

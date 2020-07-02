@@ -40,6 +40,23 @@
                                 <input type="text" class="form-control" id="diachi" value="<%= infoUser.diaChi %>">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label">Giới tính</label>
+                            <div class="mb-2">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <%= infoUser.role%>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                        x-placement="bottom-start"
+                                        style="position: absolute; transform: translate3d(0px, 33px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                        <a id='chooseMen' class="dropdown-item" href="#">Nam</a>
+                                        <a id='chooseNotMen' class="dropdown-item" href="#">Nữ</a>
+                                    </div>
+                                </div>                            </div>
+                        </div>
 
                         <div>
                             <button id="edit-book" class="btn btn-primary">Lưu</button>
@@ -67,6 +84,19 @@
     });
 
     $(document).ready(function () {
+        let gioiTinh = `<%= infoUser.gioiTinh %>`;
+        console.log({gioiTinh});
+        if(gioiTinh == 'false'){
+            gioiTinh = false;
+        }else{
+            gioiTinh = true;
+        }
+        $('#chooseMen').click(function () {
+            gioiTinh = false;
+        })
+        $('#chooseNotMen').click(function () {
+            gioiTinh = true;
+        })
         $('.item-category').click(function () {
             let name = $(this).text();
             console.log('>>>>>>>>>>>>>>>>>>>>')
@@ -89,12 +119,12 @@
                     url: '/sua-tai-khoan',
                     method: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify({ diaChi, role, email }),
+                    data: JSON.stringify({ diaChi, role, email, gioiTinh }),
                     dataType: 'json',
                     success: function (resp) {
                         console.log({ resp })
                         alert('SUA THANH CONG')
-
+                        location.reload()
                     },
                     error: function (error) {
                         console.log({ error });

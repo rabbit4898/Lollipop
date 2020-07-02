@@ -37,19 +37,10 @@
                     <div class="card-body">
                         <div class="d-block d-md-flex justify-content-between">
                             <div class="d-block">
-                                <h5 class="card-title pb-0 border-0">Data Local</h5>
+                                <h5 class="card-title pb-0 border-0">QUẢN LÝ SÁCH</h5>
                             </div>
                             <div class="d-block d-md-flex clearfix sm-mt-20">
-                                <div class="clearfix">
-                                    <div class="box">
-                                        <select class="fancyselect sm-mb-20 mr-20">
-                                            <option value="1">Some option</option>
-                                            <option value="2">Another option</option>
-                                            <option value="3">A option</option>
-                                            <option value="4">Potato</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                
                                 <div class="widget-search ml-0 clearfix">
                                     <i class="fa fa-search"></i>
                                     <input type="search" class="form-control" placeholder="Search....">
@@ -60,25 +51,42 @@
                             <table class="table center-aligned-table mb-0">
                                 <thead>
                                     <tr class="text-dark">
-                                        <th>Order No</th>
-                                        <th>Product Name</th>
-                                        <th>Purchased On</th>
-                                        <th>Shipping Status</th>
-                                        <th>Payment Method</th>
-                                        <th>Payment Status</th>
-                                        <th></th>
-                                        <th></th>
+                                        <th>ID</th>
+                                        <th>Tên sách</th>
+                                        <th>Giá tiền</th>
+                                        <th>Số lượng</th>
+                                        <th>Nhà xuất bản</th>
+                                        <th>Kích thước</th>
+                                        <th>Tác giả</th>
+                                        <th>Nhà phát hành</th>
+                                        <th>Người dịch</th>
+                                        <th>Lượt đánh giá</th>
+                                        <th>Ngôn ngữ</th>
+                                        <th>Số trang</th>
+                                        <th>Khối lượng</th>
+                                        <th>Định dạng</th>
+                                        <th>Trạng thái</th>
+                                        <th>Tuỳ Chọn</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <%resulFinded.forEach(book=>{%>
+                                    <%listBook.forEach(book=>{%>
                                     <tr class="  single-product" id='<%= book.maSP %>'>
                                         <td><%= book.maSP %></td>
                                         <td><%= book.tenSach  %></td>
                                         <td><%= book.giaTien %></td>
                                         <td><%= book.soLuong %></td>
-                                        <td>Aaron Chapman</td>
-                                        <td>10</td>
+                                        <td><%= book.nhaXuatBan %></td>
+                                        <td><%= book.kichThuoc %></td>
+                                        <td><%= book.tacGia %></td>
+                                        <td><%= book.nhaPhatHanh %></td>
+                                        <td><%= book.nguoiDich %></td>
+                                        <td><%= book.luotDanhGia %></td>
+                                        <td><%= book.ngonNgu %></td>
+                                        <td><%= book.soTrang %></td>
+                                        <td><%= book.khoiLuong %></td>
+                                        <td><%= book.dinhDang %></td>
                                         <td><label class="badge badge-success">
                                                 <%
                                             let status = 'hết hàng'

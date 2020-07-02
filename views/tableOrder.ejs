@@ -1,0 +1,133 @@
+<%- include('./intit/header') %>
+<%- include('./intit/topbar') %>
+<%- include('./intit/sidebar') %>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <head>
+        <title>Table V04</title>a
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--===============================================================================================-->
+        <link rel="icon" type="image/png" href="/controller/" />
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+        <!--=====================================================================a==========================-->
+        <link rel="stylesheet" type="text/css" href="/vendor/animate/animate.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/vendor/perfect-scrollbar/perfect-scrollbar.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="/css/util.css">
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <!--===============================================================================================-->
+    </head>
+</head>
+<div class="content-wrapper">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-xl-12 mb-30">
+                <div class="card card-statistics h-100">
+                    <div class="card-body">
+                        <div class="d-block d-md-flex justify-content-between">
+                            <div class="d-block">
+                                <h5 class="card-title pb-0 border-0">DANH SACH HOÁ ĐƠN</h5>
+                            </div>
+                            <div class="d-block d-md-flex clearfix sm-mt-20">
+
+                                <div class="widget-search ml-0 clearfix">
+                                    <i class="fa fa-search"></i>
+                                    <input type="search" class="form-control" placeholder="Search....">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive mt-15">
+                            <table class="table center-aligned-table mb-0">
+                                <thead>
+                                    <tr class="text-dark">
+                                        <th>Mã hoá đơn</th>
+                                        <th>Tên Người Mua</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Số lượng mua</th>
+                                        <th>Trạng Thái</th>
+                                        <th>Giảm giá</th>
+                                        <th>Địa chỉ giao hàng</th>
+                                        <th>Số điện thoại</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%listOrder.forEach(order=>{%>
+                                    <tr class="  single-product" id=''>
+                                        <td><%= order.maDonHang %></td>
+                                        <td><%= order.tenNguoiMua %></td>
+                                        <td><%= order.tongTien %></td>
+                                        <td><%= order.soLuongMua %></td>
+                                        <td><%= order.trangThai %></td>
+                                        <td><%= order.giamGia %></td>
+                                        <td><%= order.diaChiGiaoHang %></td>
+                                        <td><%= order.soDienThoai %></td>
+
+                                    </tr>
+                                    <%})%>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--===============================================================================================-->
+<script src=" /vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="/vendor/bootstrap/js/popper.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script>
+    $('.js-pscroll').each(function () {
+        var ps = new PerfectScrollbar(this);
+
+        $(window).on('resize', function () {
+            ps.update();
+        })
+    });
+
+    $('.xoa-sach').click(function () {
+        let categoryName = $(this).attr('idCategory');
+        let idBook = $(this).attr('id');
+
+        console.log({ categoryName, idBook });
+        $.ajax({
+            url: '/xoa-sach',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ categoryName, idBook }),
+            dataType: 'json',
+            success: function (resp) {
+                console.log({ resp })
+                alert('xAO THANH CONG')
+
+            },
+            error: function (error) {
+                console.log({ error });
+                alert('Có lỗi khi thao tác')
+            }
+        })
+    })
+</script>
+<!--===============================================================================================-->
+<script src="/js/main.js"></script>
+
+</html>

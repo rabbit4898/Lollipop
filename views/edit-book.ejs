@@ -42,7 +42,80 @@
                                     value="<%= infoBook.giaTien.integerValue %>">
                             </div>
                         </div>
-
+                        <div class="form-group">
+                            <label class="control-label">KÍCH THƯỚC</label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="kichthuoc"
+                                value="<%= infoBook.kichThuoc.stringValue %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">TÁC GIẢ</label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="tacgia"
+                                value="<%= infoBook.tacGia.stringValue %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">NHÀ XUẤT BẢN</label>
+                            <div class="mb-2">
+                                 <input type="text" class="form-control" id="nhaxuatban"
+                                value="<%= infoBook.nhaXuatBan.stringValue %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">GIỚI THIỆU SÁCH</label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="gioithieusach"
+                                value="<%= infoBook.gioiThieuSach.stringValue %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">TRẠNG THÁI</label>
+                            <div class="mb-2">
+                                <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle " type="button"
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <p class="hienthitrangthai"><%= infoBook.trangThai.booleanValue %></p>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                    x-placement="bottom-start"
+                                    style="position: absolute; transform: translate3d(0px, 33px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                    <a id='statusTrue' class="dropdown-item" href="#">TRUE</a>
+                                    <a id='statusFalse' class="dropdown-item" href="#">FALSE</a>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">KHỐI LƯỢNG</label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="khoiluong"
+                                value="<%= infoBook.khoiLuong.stringValue %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">ĐỊNH DẠNG</label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="dinhdang"
+                                value="<%= infoBook.dinhDang.stringValue %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">NGÔN NGỮ</label>
+                            <div class="mb-2">
+                                <input type="text" class="form-control" id="ngonngu"
+                                value="<%= infoBook.ngonNgu.stringValue %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">SỐ TRANG</label>
+                            <div class="mb-2">
+                                <input type="number" class="form-control" id="sotrang"
+                                value="<%= infoBook.soTrang.stringValue %>">
+                            </div>
+                        </div>
                         <div>
                             <button id="edit-book" class="btn btn-primary">Lưu</button>
                         </div>
@@ -67,6 +140,7 @@
             ps.update();
         })
     });
+    let statusBook = true;
 
     $(document).ready(function () {
         $('.item-category').click(function () {
@@ -75,13 +149,37 @@
             $('#main-category').text(name)
             $('#main-category').attr('id', $(this).attr('id'))
         })
+
+        $('#statusTrue').click(function(){
+            statusBook = true;
+            $('.hienthitrangthai').text('TRUE')
+        })
+        $('#statusFalse').click(function(){
+            statusBook = false;
+            $('.hienthitrangthai').text('FALSE')
+
+        })
         $('#edit-book').click(function () {
             let nameBook = $('#nameBook').val();
             let amoutBook = $('#amoutBook').val();
             let priceBook = $('#priceBook').val();
-            let dataUpdate = { tenSach: nameBook, soLuong: Number(amoutBook), giaTien: Number(priceBook) }
+            let kichThuoc = $('#kichthuoc').val();
+            let tacGia = $('#tacgia').val();
+            let nhaXuatBan = $('#nhaxuatban').val();
+
+            let gioiThieuSach = $('#gioithieusach').val();
+            let khoiLuong = $('#khoiluong').val();
+            let dinhDang = $('#dinhdang').val();
+            let ngonNgu = $('#ngonngu').val();
+            let soTrang = $('#sotrang').val();
+
+            let dataUpdate = { tenSach: nameBook, soLuong: Number(amoutBook), giaTien: Number(priceBook) ,
+                trangThai : statusBook, kichThuoc, tacGia, nhaXuatBan, gioiThieuSach, khoiLuong, dinhDang
+                , ngonNgu, soTrang
+            
+            }
             let categoryName = $('.main-category').attr('id');
-            console.log({ tenSach: nameBook, soLuong: amoutBook, giaTien: priceBook })
+            console.log({ tenSach: nameBook, soLuong: amoutBook, giaTien: priceBook, trangThai : statusBook })
             // kiểm tra nếu điền đầy đủ thông ton thì cho phép thêm vào
             if (nameBook && amoutBook && priceBook) {
                 // call ajax

@@ -59,21 +59,24 @@
                                         <th>Giảm giá</th>
                                         <th>Địa chỉ giao hàng</th>
                                         <th>Số điện thoại</th>
+                                        <th>tuỳ chọn</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <%listOrder.forEach(order=>{%>
-                                    <tr class="  single-product" id=''>
-                                        <td><%= order.maDonHang %></td>
+                                    <tr class="single-product SINGLE-ORDER" id='<%= order.maDonHang %>'>
+                                        <td id ='madonhang'><%= order.maDonHang %></td>
                                         <td><%= order.tenNguoiMua %></td>
                                         <td><%= order.tongTien %></td>
                                         <td><%= order.soLuongMua %></td>
-                                        <td><%= order.trangThai %></td>
+                                        <td><input id='trangthai' type ='text' value="<%= order.trangThai %>"/></td>
                                         <td><%= order.giamGia %></td>
                                         <td><%= order.diaChiGiaoHang %></td>
                                         <td><%= order.soDienThoai %></td>
-
+                                        <td><a id ='capnhat' class="btn btn-outline-success btn-sm">CẬP NHẬT</a></td>
+                                     
+                                        
                                     </tr>
                                     <%})%>
                                 </tbody>
@@ -104,20 +107,22 @@
         })
     });
 
-    $('.xoa-sach').click(function () {
+    $('#capnhat').click(function () {
         let categoryName = $(this).attr('idCategory');
         let idBook = $(this).attr('id');
-
-        console.log({ categoryName, idBook });
+        console.log($(this).parents('.SINGLE-ORDER').find('#trangthai').val())
+        let trangThai = $(this).parents('.SINGLE-ORDER').find('#trangthai').val();
+        let maDonHang =$(this).parents('.SINGLE-ORDER').find('#madonhang').text();
+        console.log({ trangThai, maDonHang });
         $.ajax({
-            url: '/xoa-sach',
+            url: '/cap-nhat-hoa-don',
             method: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({ categoryName, idBook }),
+            data: JSON.stringify({ trangThai, maDonHang }),
             dataType: 'json',
             success: function (resp) {
                 console.log({ resp })
-                alert('xAO THANH CONG')
+                alert('cap nhat THANH CONG')
 
             },
             error: function (error) {

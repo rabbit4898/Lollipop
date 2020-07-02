@@ -572,6 +572,71 @@ app.get('/danh-sach-hoa-don', async (req, res) => {
   }
   // res.redirect('/');
 });
+
+
+
+app.post('/cap-nhat-hoa-don', async (req, res) => {
+  let { token } = req.session;
+  if (!token || !token.email) {
+    res.redirect('/');
+  }
+
+  let { trangThai, maDonHang } = req.body;
+  let dataUpdate = { trangThai }
+  console.log({ dataUpdate });
+  let roleC = '';
+  // lấy thông tin user
+  role = await CheckAdmin(token.email)
+
+  if ((roleC = 'Admin')) {
+    let _listUser = [];
+  let docRefUseryList = db.collection('UserCollection');
+  let listUser = await docRefUseryList
+    .get()
+    .then(snapshot => {
+      snapshot.forEach(doc => {
+        console.log(doc.id, '=>', doc.data());
+        _listUser.push(doc.data());
+      });
+    })
+    .catch(err => {
+      console.log('Error getting documents', err);
+    });
+    let listOrder = [];
+    let emailKH = '';
+    for( item of _listUser){
+       (async()=>{
+        await db
+        .collection('UserCollection')
+        .doc('' + item.email).collection('OrderCollection')
+        .get()
+        .then(function(snapshot) {
+          snapshot.forEach(doc => {
+            if(doc.maDonHang == maDonHang){
+              emailKH = item.email;
+              break;
+            }
+           
+          });
+        });
+      
+      })();
+     
+    }
+
+    let docRef = db
+    .collection('UserCollection')
+    .doc('' + item.email).collection('OrderCollection')
+    .doc(maDonHang);
+
+    let listCategory = [];
+    let infoBook = await docRef.update(dataUpdate);
+    return res.json({ infoBook });
+  }
+});
+
+
+
 //======================= KÊTS THÚC HOÁ ĐƠN
 const port = 3000;
 app.listen(port, () => {
